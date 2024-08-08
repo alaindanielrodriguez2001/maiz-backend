@@ -8,6 +8,8 @@ class CampoSerializer(serializers.ModelSerializer):
 
 
 class ObservacionSerializer(serializers.ModelSerializer):
+    nombre_del_campo = serializers.CharField(source='campo.nombre_del_campo', read_only=True)
+
     class Meta:
         model = Observacion
-        fields = ['id', 'campo', 'fecha', 'fase_fenologica', 'humedad_maxima', 'humedad_minima', 'humedad_media', 'temperatura_maxima', 'temperatura_minima', 'temperatura_media', 'precipitacion', 'presencia_del_hongo']
+        fields = ['id', 'nombre_del_campo', 'fecha', 'fase_fenologica', 'humedad_maxima', 'humedad_minima', 'humedad_media', 'temperatura_maxima', 'temperatura_minima', 'temperatura_media', 'precipitacion', 'presencia_del_hongo']
