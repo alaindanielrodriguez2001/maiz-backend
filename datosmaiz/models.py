@@ -19,7 +19,7 @@ class Campo(models.Model):
 
 
 class Observacion(models.Model):
-    campo=models.ForeignKey(Campo, on_delete=models.CASCADE, default=1)
+    campo=models.ForeignKey(Campo, on_delete=models.CASCADE, to_field="id", default=1)
     fecha = models.DateField()
     fase_fenologica = models.IntegerField()
     humedad_maxima = models.FloatField()

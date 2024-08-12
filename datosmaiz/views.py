@@ -108,3 +108,21 @@ def campo_detail(request, pk):
     elif request.method == 'DELETE':
         campo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+# @api_view(['GET'])
+# def observaciones_de_un_campo(request, nombre_del_campo):
+#     """
+#     Lista de las observaciones de un campo en espec'ifico.
+#     """
+    
+
+#     try:
+#         observaciones = Observacion.objects.get(campo=Campo.objects.get(nombre_del_campo=nombre_del_campo)(0).id)
+#         serializer = ObservacionSerializer(observaciones, many=True)
+#         return Response(serializer.data)
+#     except Campo.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+#     except Observacion.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+
