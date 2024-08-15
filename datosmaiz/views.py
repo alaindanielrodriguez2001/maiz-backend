@@ -110,19 +110,25 @@ def campo_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-# @api_view(['GET'])
-# def observaciones_de_un_campo(request, nombre_del_campo):
-#     """
-#     Lista de las observaciones de un campo en espec'ifico.
-#     """
-    
-
-#     try:
-#         observaciones = Observacion.objects.get(campo=Campo.objects.get(nombre_del_campo=nombre_del_campo)(0).id)
-#         serializer = ObservacionSerializer(observaciones, many=True)
-#         return Response(serializer.data)
-#     except Campo.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-#     except Observacion.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-
+@api_view(['GET'])
+def observaciones_de_un_campo(request, campo_pk):
+    """
+    Lista de las observaciones de un campo en específico.
+    """
+    try:
+        print(f"Fetching observations for campo ID: {campo_pk}")
+        if campo_pk == 0:
+            observaciones = Observacion.objects.all()
+        else:
+            observaciones = Observacion.objects.filter(campo_id=campo_pk)
+        serializer = ObservacionSerializer(observaciones, many=True)
+        return Response(serializer.data)
+    except Campo.DoesNotExist:
+        print(f"Campo with ID {campo_pk} does not exist.")
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    except Observacion.DoesNotExist:
+        print(f"No observations found for campo ID {campo_pk}.")
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
