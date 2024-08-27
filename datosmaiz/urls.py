@@ -6,18 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-urlpatterns = [
-    #Rutas viejas
-    
-    path('observaciones/', views.observaciones_list),
-    path('observacion/<int:pk>', views.observacion),
-    path('observaciones_campo/<int:campo_pk>/', views.observaciones_de_un_campo),
-    path('campos/', views.campos_list),
-    path('campo/<int:pk>', views.campo),
-    
-    
-    #Rutas nuevas
-    
+urlpatterns = [   
     path('estaciones/', views.estaciones_list),
     path('estacion/<int:pk>', views.estacion),
     
@@ -30,6 +19,7 @@ urlpatterns = [
     path('unidad/<int:pk>', views.unidad),
     
     path('pronosticos/', views.pronosticos_list),
+    path('pronostico/<int:pk>', views.pronostico),
     
     
     #Relacionado con la autenticaci'on
