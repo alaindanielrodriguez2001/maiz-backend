@@ -1,5 +1,6 @@
 from .models import Estacion, Registro, Unidad, Pronostico
 from .serializers import EstacionSerializer, RegistroSerializer, UnidadSerializer, PronosticoSerializer, RegisterSerializer
+from .funciones import calcular_suma_termica, determinar_dias_criticos, actualizar_suma_termica_y_dias_criticos
 from rest_framework import status, generics
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -44,6 +45,9 @@ def registros_list(request):
         serializer = RegistroSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            unidad = Unidad.objects.get(estacion=registro.estacion)
+            calcular_suma_termica(unidad)
+            determinar_dias_criticos(unidad)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -107,6 +111,7 @@ def registros_de_una_estacion(request, pk):
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def pronosticos_list(request):
+    actualizar_suma_termica_y_dias_criticos()
     if request.method == 'GET':
         pronosticos = Pronostico.objects.all()
         serializer = PronosticoSerializer(pronosticos, many=True)
@@ -121,6 +126,7 @@ def pronosticos_list(request):
 @api_view(['GET','DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def pronostico(request, pk):
+    actualizar_suma_termica_y_dias_criticos()
     if request.method == 'GET':
         pronostico = Pronostico.objects.get(id=pk)
         serializer = PronosticoSerializer(pronostico)

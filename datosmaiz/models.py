@@ -26,6 +26,8 @@ class Registro(models.Model):
 
     class Meta:
         ordering = ['fecha']
+        unique_together = ['estacion', 'fecha']
+
 
     
 class Unidad(models.Model):
@@ -41,6 +43,9 @@ class Unidad(models.Model):
     marco_de_siembra = models.FloatField()
     sistema_de_riego = models.CharField(max_length=100)
     
+    #Para la emisión de pronósticos
+    suma_termica = models.FloatField(default=0.0)
+    
     class Meta:
         ordering = ['nombre']
     
@@ -52,8 +57,10 @@ class Pronostico(models.Model):
     plazo_primeros_sintomas = models.IntegerField()
     tipo_de_mensaje = models.CharField(max_length=100)
     total_grados_dias = models.FloatField()
-    fase_fenologica = models.IntegerField()
     
+    #Conteo de días críticos
+    dias_criticos = models.IntegerField(default=0)
     class Meta:
         ordering = ['unidad']
+
 
