@@ -45,6 +45,7 @@ class Unidad(models.Model):
     
     #Para la emisión de pronósticos
     suma_termica = models.FloatField(default=0.0)
+    dias_criticos = models.IntegerField(default=0)
     
     class Meta:
         ordering = ['nombre']
@@ -52,14 +53,13 @@ class Unidad(models.Model):
     
 class Pronostico(models.Model):
     unidad = models.ForeignKey(Unidad, on_delete=models.CASCADE, to_field="id", default=1)
+    fecha_de_siembra = models.DateField(null=True)
     denominacion_del_cultivar = models.CharField(max_length=100)
-    periodo_favorable = models.IntegerField()
-    plazo_primeros_sintomas = models.IntegerField()
+    periodo_favorable = models.CharField(max_length=100)
+    plazo_primeros_sintomas = models.CharField(max_length=100)
     tipo_de_mensaje = models.CharField(max_length=100)
     total_grados_dias = models.FloatField()
-    
-    #Conteo de días críticos
-    dias_criticos = models.IntegerField(default=0)
+
     class Meta:
         ordering = ['unidad']
 

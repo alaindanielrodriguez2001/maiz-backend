@@ -22,8 +22,7 @@ urlpatterns = [
     path('pronostico/<int:pk>', views.pronostico),
     
     
-    #Relacionado con la autenticaci'on
-    
+    #Relacionado con la autenticación
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/register/', RegisterView.as_view(), name='auth_register'),

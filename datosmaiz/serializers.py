@@ -20,6 +20,7 @@ class UnidadSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class PronosticoSerializer(serializers.ModelSerializer):
+    unidad_nombre = serializers.CharField(source = 'unidad.nombre', read_only = True)
     class Meta:
         model = Pronostico
         fields = '__all__'
