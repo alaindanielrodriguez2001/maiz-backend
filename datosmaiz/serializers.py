@@ -9,12 +9,15 @@ class EstacionSerializer(serializers.ModelSerializer):
 
 class RegistroSerializer(serializers.ModelSerializer):
     estacion_codigo = serializers.CharField(source='estacion.codigo', read_only=True)
+    estacion_nombre = serializers.CharField(source='estacion.nombre', read_only=True)
+
     class Meta:
         model = Registro
         fields = '__all__'       
  
 class UnidadSerializer(serializers.ModelSerializer):
     estacion_codigo = serializers.CharField(source='estacion.codigo', read_only=True)
+    estacion_nombre = serializers.CharField(source='estacion.nombre', read_only=True)
     class Meta: 
         model = Unidad
         fields = '__all__'
