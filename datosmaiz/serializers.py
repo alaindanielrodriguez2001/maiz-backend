@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Estacion, Registro, Unidad, Pronostico
 from django.contrib.auth.models import User
 
+#Serializadores de los modelos
 class EstacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estacion
@@ -30,7 +31,7 @@ class PronosticoSerializer(serializers.ModelSerializer):
     
         
 
-#Relacionado con la autenticaci'on
+#Relacionado con la autenticación
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 

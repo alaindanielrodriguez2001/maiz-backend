@@ -1,5 +1,6 @@
 from django.db import models
 
+#Modelo para almacenar los datos de las estaciones meteorológicas
 class Estacion(models.Model):
     codigo = models.CharField(max_length=100, unique=True)
     nombre = models.CharField(max_length=100, unique = True)
@@ -8,6 +9,7 @@ class Estacion(models.Model):
     class Meta:
         ordering = ['codigo', 'municipio', 'nombre']
         
+#Modelo para almacenar las observaciones diarias de las estaciones meteorológicas
 class Registro(models.Model):
     estacion = models.ForeignKey(Estacion, on_delete=models.CASCADE, to_field="id", default=1)
     fecha = models.DateField()
@@ -25,11 +27,11 @@ class Registro(models.Model):
     velocidad_del_viento = models.FloatField()
 
     class Meta:
-        ordering = ['fecha']
+        ordering = ['-fecha']
         unique_together = ['estacion', 'fecha']
 
 
-    
+#Modelo para almacenar los datos de las unidades de cultivo
 class Unidad(models.Model):
     nombre = models.CharField(max_length=100)
     estacion = models.ForeignKey(Estacion, on_delete=models.CASCADE, to_field="id", default=1)
@@ -50,7 +52,7 @@ class Unidad(models.Model):
     class Meta:
         ordering = ['nombre']
     
-    
+#Modelo para almacenar los pronósticos emitidos
 class Pronostico(models.Model):
     unidad = models.ForeignKey(Unidad, on_delete=models.CASCADE, to_field="id", default=1)
     fecha_de_siembra = models.DateField(null=True)

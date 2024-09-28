@@ -6,6 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+#Rutas para la API
 urlpatterns = [   
     path('estaciones/', views.estaciones_list),
     path('estacion/<int:pk>', views.estacion),

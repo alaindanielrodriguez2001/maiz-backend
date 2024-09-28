@@ -1,12 +1,13 @@
 from .models import Estacion, Registro, Unidad, Pronostico
 from .serializers import EstacionSerializer, RegistroSerializer, UnidadSerializer, PronosticoSerializer, RegisterSerializer
-from .funciones import calcular_suma_termica, determinar_dias_criticos, emitir_pronosticos
+from .funciones import emitir_pronosticos
 from rest_framework import status, generics
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.decorators import api_view, permission_classes
 
+#Recupera la lista de estaciones meteorológicas o añade una
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def estaciones_list(request):
@@ -21,6 +22,7 @@ def estaciones_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+#Recupera los datos de una estación o la elimina
 @api_view(['GET','DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def estacion(request, pk):
@@ -34,6 +36,7 @@ def estacion(request, pk):
         return Response(status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
+#Recupera la lista de observaciones meteorológicas o añade una
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def registros_list(request):
@@ -48,6 +51,7 @@ def registros_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+#Recupera los datos de una observacion meteorológica o la elimina
 @api_view(['GET','DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def registro(request, pk):
@@ -61,6 +65,7 @@ def registro(request, pk):
         return Response(status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
+#Recupera la lista de unidades de cultivo o añade una
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def unidades_list(request):
@@ -76,6 +81,7 @@ def unidades_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+#Recupera los datos de una unidad de cultivo o la elimina
 @api_view(['GET','DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def unidad(request, pk):
@@ -89,6 +95,7 @@ def unidad(request, pk):
         return Response(status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
+#Recupera las observaciones de una estacion meteorológica especifica
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def registros_de_una_estacion(request, pk):
@@ -106,7 +113,7 @@ def registros_de_una_estacion(request, pk):
     except Exception as e:
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
+#Emite los pronósticos pendientes y recupera la lista de todos los pronósticos
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def pronosticos_list(request):
@@ -115,6 +122,7 @@ def pronosticos_list(request):
     serializer = PronosticoSerializer(pronosticos, many = True)
     return Response(serializer.data)
     
+#Recupera los datos de un pronóstico o lo elimina
 @api_view(['GET','DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def pronostico(request, pk):
@@ -128,9 +136,7 @@ def pronostico(request, pk):
         return Response(status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    
-#Relacionado con la autenticaci'on
-
+#Relacionado con la autenticación
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
