@@ -106,8 +106,6 @@ def registros_de_una_estacion(request, pk):
             registros = Registro.objects.filter(estacion=pk)
         serializer = RegistroSerializer(registros, many=True)
         return Response(serializer.data)
-    except Unidad.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
     except Registro.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
