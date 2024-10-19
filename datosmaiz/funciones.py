@@ -73,7 +73,7 @@ def emitir_pronosticos():
             
             # Crea y guarda el nuevo pronóstico
             pronostico = Pronostico(
-                unidad=unidad.id,
+                unidad=unidad,
                 fecha_de_siembra = unidad.fecha_de_siembra,
                 denominacion_del_cultivar=unidad.denominacion_del_cultivar,
                 periodo_favorable=periodo_favorable,
@@ -81,7 +81,11 @@ def emitir_pronosticos():
                 tipo_de_mensaje=tipo_de_mensaje,
                 total_grados_dias=unidad.suma_termica
             )
-            pronostico.save()
+            try:
+                pronostico.save()
+            except Exception as e:
+                pass
+            
 
 
             

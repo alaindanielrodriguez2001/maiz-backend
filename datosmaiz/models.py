@@ -64,5 +64,6 @@ class Pronostico(models.Model):
 
     class Meta:
         ordering = ['unidad']
+        unique_together = ['unidad', 'fecha_de_siembra', 'denominacion_del_cultivar', 'tipo_de_mensaje']
 
 

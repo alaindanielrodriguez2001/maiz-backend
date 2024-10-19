@@ -141,3 +141,30 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
     
 
+
+
+
+
+
+
+
+# #Para añadir instancias de prueba
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def add_registros(request):
+#     if request.method == 'POST':
+#         serializer = RegistroSerializer(data=request.data, many=True)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def add_pronosticos(request):
+#     if request.method == 'POST':
+#         serializer = PronosticoSerializer(data=request.data, many=True)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
