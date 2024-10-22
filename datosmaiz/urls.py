@@ -8,19 +8,19 @@ from rest_framework_simplejwt.views import (
 
 #Rutas para la API
 urlpatterns = [   
-    path('estaciones/', views.estaciones_list),
-    path('estacion/<int:pk>', views.estacion),
+    path('estaciones/', views.estaciones_list, name='estaciones'),
+    path('estacion/<int:pk>', views.estacion, name='estacion'),
     
-    path('registros/', views.registros_list),
-    path('registro/<int:pk>', views.registro),
-    path('registros_estacion/<int:pk>', views.registros_de_una_estacion),
+    path('registros/', views.registros_list, name='registros'),
+    path('registro/<int:pk>', views.registro, name='registro'),
+    path('registros_estacion/<int:pk>', views.registros_de_una_estacion, name='registros_estacion'),
 
     
-    path('unidades/', views.unidades_list),
-    path('unidad/<int:pk>', views.unidad),
+    path('unidades/', views.unidades_list, name='unidades'),
+    path('unidad/<int:pk>', views.unidad, name='unidad'),
     
-    path('pronosticos/', views.pronosticos_list),
-    path('pronostico/<int:pk>', views.pronostico),
+    path('pronosticos/', views.pronosticos_list, name='pronosticos'),
+    path('pronostico/<int:pk>', views.pronostico, name='pronostico'),
     
     
     #Relacionado con la autenticación
