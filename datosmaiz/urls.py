@@ -28,7 +28,10 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/register/', RegisterView.as_view(), name='auth_register'),
     
-    #Para añadir instancias de prueba
+    
+    
+    
+    # #Para añadir instancias de prueba
     # path('add_registros/', views.add_registros),
     # path('add_pronosticos/', views.add_pronosticos)
 ]
