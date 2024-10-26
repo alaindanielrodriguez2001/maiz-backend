@@ -121,17 +121,31 @@ def pronosticos_list(request):
     return Response(serializer.data)
     
 #Recupera los datos de un pronóstico o lo elimina
-@api_view(['GET','DELETE'])
+# views.py
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Unidad, Pronostico
+from .serializers import UnidadSerializer, PronosticoSerializer
+
+@api_view(['GET', 'DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def pronostico(request, pk):
-    if request.method == 'GET':
+    try:
         pronostico = Pronostico.objects.get(id=pk)
+    except Pronostico.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
         serializer = PronosticoSerializer(pronostico)
         return Response(serializer.data)
     elif request.method == 'DELETE':
-        pronostico = Pronostico.objects.get(id=pk)
+        if pronostico.unidad.dias_criticos > 4:
+            return Response({"error": "Unidad associated has more than 4 dias criticos"}, status=422)
         pronostico.delete()
         return Response(status=status.HTTP_200_OK)
+    
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 #Relacionado con la autenticación

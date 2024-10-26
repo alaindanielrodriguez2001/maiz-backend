@@ -63,7 +63,7 @@ class Pronostico(models.Model):
     total_grados_dias = models.FloatField()
 
     class Meta:
-        ordering = ['unidad']
+        ordering = ['-fecha_de_siembra']
         unique_together = ['unidad', 'fecha_de_siembra', 'denominacion_del_cultivar', 'tipo_de_mensaje']
 
 
