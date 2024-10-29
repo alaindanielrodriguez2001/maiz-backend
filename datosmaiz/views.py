@@ -121,14 +121,6 @@ def pronosticos_list(request):
     return Response(serializer.data)
     
 #Recupera los datos de un pronóstico o lo elimina
-# views.py
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
-from rest_framework.response import Response
-from rest_framework import status
-from .models import Unidad, Pronostico
-from .serializers import UnidadSerializer, PronosticoSerializer
-
 @api_view(['GET', 'DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def pronostico(request, pk):
@@ -162,23 +154,14 @@ class RegisterView(generics.CreateAPIView):
 
 
 
-# #Para añadir instancias de prueba
-# @api_view(['POST'])
-# @permission_classes([AllowAny])
-# def add_registros(request):
-#     if request.method == 'POST':
-#         serializer = RegistroSerializer(data=request.data, many=True)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#Para añadir instancias de prueba
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def add_registros(request):
+    if request.method == 'POST':
+        serializer = RegistroSerializer(data=request.data, many=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-# @api_view(['POST'])
-# @permission_classes([AllowAny])
-# def add_pronosticos(request):
-#     if request.method == 'POST':
-#         serializer = PronosticoSerializer(data=request.data, many=True)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

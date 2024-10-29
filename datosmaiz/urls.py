@@ -31,7 +31,6 @@ urlpatterns = [
     
     
     
-    # #Para añadir instancias de prueba
-    # path('add_registros/', views.add_registros),
-    # path('add_pronosticos/', views.add_pronosticos)
+    #Para añadir instancias de prueba
+    path('add_registros/', views.add_registros)
 ]
