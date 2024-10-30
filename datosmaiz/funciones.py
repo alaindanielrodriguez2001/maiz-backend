@@ -49,8 +49,6 @@ def determinar_dias_criticos(unidad, fecha_700):
         unidad.dias_criticos = dias_criticos
         unidad.save()
 
-    
-
 #Emite los pronósticos de advertencia
 def emitir_pronosticos():
     unidades = Unidad.objects.all()
