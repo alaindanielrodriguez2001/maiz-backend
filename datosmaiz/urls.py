@@ -31,6 +31,6 @@ urlpatterns = [
     
     
     
-    #Para añadir instancias de prueba
-    path('add_registros/', views.add_registros)
+    # #Para añadir instancias de prueba
+    # path('add_registros/', views.add_registros)
 ]

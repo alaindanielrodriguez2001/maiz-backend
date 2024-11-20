@@ -154,14 +154,14 @@ class RegisterView(generics.CreateAPIView):
 
 
 
-#Para añadir instancias de prueba
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def add_registros(request):
-    if request.method == 'POST':
-        serializer = RegistroSerializer(data=request.data, many=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# #Para añadir instancias de prueba
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def add_registros(request):
+#     if request.method == 'POST':
+#         serializer = RegistroSerializer(data=request.data, many=True)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

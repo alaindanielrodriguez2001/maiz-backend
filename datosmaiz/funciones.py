@@ -52,25 +52,19 @@ def determinar_dias_criticos(unidad, fecha_700):
 #Emite los pronósticos de advertencia
 def emitir_pronosticos():
     unidades = Unidad.objects.all()
-
     for unidad in unidades:
         fecha_700 = calcular_suma_termica(unidad)
         determinar_dias_criticos(unidad, fecha_700)
-
         if unidad.dias_criticos >= 5:
             registros = Registro.objects.filter(estacion=unidad.estacion, fecha__gte=fecha_700).order_by('fecha')
             ultimo_dia_critico = registros[len(registros) - 1].fecha
-
             fecha_inicio_periodo_favorable = (ultimo_dia_critico - timedelta(days=10)).strftime('%d/%m/%Y')
             fecha_fin_periodo_favorable = ultimo_dia_critico.strftime('%d/%m/%Y')
             periodo_favorable = f"{fecha_inicio_periodo_favorable}-{fecha_fin_periodo_favorable}"
-
             fecha_inicio_plazo_sintomas = ultimo_dia_critico.strftime('%d/%m/%Y')
             fecha_fin_plazo_sintomas = (ultimo_dia_critico + timedelta(days=10)).strftime('%d/%m/%Y')
             plazo_primeros_sintomas = f"{fecha_inicio_plazo_sintomas}-{fecha_fin_plazo_sintomas}"
-
             tipo_de_mensaje = "Alerta" if unidad.dias_criticos == 5 else "Peligro máximo"
-
             pronostico = Pronostico(
                 unidad=unidad,
                 fecha_de_siembra=unidad.fecha_de_siembra,
@@ -80,7 +74,6 @@ def emitir_pronosticos():
                 tipo_de_mensaje=tipo_de_mensaje,
                 total_grados_dias=unidad.suma_termica
             )
-
             try:
                 pronostico.save()
             except Exception as e:
